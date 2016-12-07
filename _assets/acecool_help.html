@@ -1,0 +1,561 @@
+﻿<html>
+	<head>
+		<title>Acecool AHK Script Compilation Help</title>
+		<link rel="shortcut icon" href="./icons/favicon.ico" />
+
+		<style>
+			.body {
+				font-name: arial;
+			}
+			.hotkey_table {
+				width:600px;
+				border:1px solid #A9B7D8;
+				border-collapse:collapse;
+				vertical-align: top;
+				align: top;
+				padding:5px;
+			}
+			.hotkey_table th {
+				border:1px solid #A9B7D8;
+				vertical-align: top;
+				align: top;
+				padding:5px;
+				background:#334488;
+				color: #FFFFFF !important;
+			}
+			.hotkey_table td {
+				min-width: 100px;
+				border:1px solid #A9B7D8;
+				text-align:left;
+				vertical-align: top;
+				align: top;
+				padding:5px;
+				background:#ECEBFA;
+			}
+			.disabled {
+				border:1px solid #A9B7D8;
+				padding:5px;
+				background:#770000 !important;
+				color: #FFFFFF !important;
+			}
+
+			td:nth-child( even )
+			{
+				background-color: #FFFFFF !important;
+			}
+
+			.hotkey_table th:nth-child( even )
+			{
+				background-color: #5566AA !important;
+				color: #FFFFFF !important;
+				min-width:250px !important;
+			}
+
+			caption
+			{
+				padding:5px;
+				background-color: #334488 !important;
+				color: #FFFFFF !important;
+			}
+			.td_divider {
+				padding:2px !important;
+				background:#112266 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<h1><center>Acecool AHK Script Compilation Help</center></h1>
+
+
+		<list>
+			<li><a href="#behavioral_changes">Default HotKey Behavioral Alterations</a></li>
+			<li><a href="#hotkeys">HotKeys</a></li>
+			<li><a href="#disabled_hotkey_table">Disabled / Deactivated HotKeys</a></li>
+			<li><a href="#special_chars_toggle">Special Character HotKeys Toggle</a> ( for any that use the same hotkey such as Spanish / German a, o and u )</li>
+			<li><a href="#special_chars">Special Character HotKeys</a></li>
+			<li><a href="#language_chars">Language Specific Characters</a> ( Umlauts, etc.. )</li>
+			<li><a href="#math_chars">Math Characters</a></li>
+
+		</list>
+		<br />
+
+			<table class="hotkey_table">
+				<thead>
+					<tr>
+						<th>Hotkeys / Behavioral Modifications / Etc..</th>
+						<th>Character / String Specific Hotkeys</th>
+					</tr>
+				</thead>
+				<tr>
+					<td width="50%">
+
+						<!--
+
+							☼ Default HotKey Behavioral Alterations
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="behavioral_changes"></a>☼ Default HotKey Behavioral Alterations</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- Backspace - Move up a directory -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Move Up One Directory</center></td>
+										</tr>
+										<tr>
+											<td>Backspace</td>
+											<td><small>Reverts the behavior of the backspace key to that of Windows XP where it goes up a directory instead of the new behavior of going back in history...</td>
+										</tr>
+
+									<!-- ALT + TAB / WIN + Tab - Both enable new Desktop Task View -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Desktops & TaskView System</center></td>
+										</tr>
+										<tr>
+											<td>ALT + Tab<br /><br />WIN + Tab</td>
+											<td><small>In Windows 10, WIN + Tab shows a beautiful layout where all of your windows can be seen, you can create new desktops, remove them, switch to them and move applications to them... With behavior modification, ALT + Tab does the same thing rather than opening the small application switcher..</td>
+										</tr>
+
+										<!-- CapsLock - CapsLock Avoidance System -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>CapsLock Avoidance System</center></td>
+										</tr>
+										<tr>
+											<td>CapsLock<br /><br />CapsLock * 2<br /><br />Shift</td>
+											<td>Capslock Behaves like Shift, Double Tap for CapsLock<br /><br /><small>Hold CapsLock to type in Uppercase; On Release CapsLock is disengaged.<br />Double-Tap CapsLock to engage CapsLock<br />Tap CapsLock or Shift to disengage CapsLock..</td>
+										</tr>
+								</tbody>
+							</table>
+						</p>
+
+
+						<!--
+
+							☼ HotKeys
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="hotkeys"></a>☼ HotKeys</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<!-- WIN + H - Toggle Hidden Files -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Toggle Hidden File Visibility</center></td>
+										</tr>
+										<tr>
+											<td>WIN + H</td>
+											<td><small>Toggles whether or not hidden files can be seen while using Explorer...</td>
+										</tr>
+
+									<!-- ALT + F12 - Screenshot Active Window -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Screenshot Active Window</center></td>
+										</tr>
+										<tr>
+											<td>ALT + F12</td>
+											<td>Saves Active Window Screenshot to "Dropbox\Screenshots\"<br /><br /><small>If you click on the toast-notification it'll open the image and ask if you want to make it public which moves it to Dropbox\Public\Screenshots\</td>
+										</tr>
+
+									<!-- PAUSE - Cycle through audio devices -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Cycle Audio IO Devices</center></td>
+										</tr>
+										<tr>
+											<td>Pause / Break</td>
+											<td><small>Desktop Speakers & PS3 Eye Microphones for the first device, Plantronics Headset for the second, Logitech Headset for the third...</td>
+										</tr>
+
+
+								</tbody>
+							</table>
+						</p>
+
+
+						<!--
+
+							☼ HotKeys
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="disabled_hotkey_table"></a>☼ Disabled / Deactivated HotKeys</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<!-- WIN + DEL - Empty Recycle Bin -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td class="disabled" colspan="2"><center>Empty Recycle Bin</center></td>
+										</tr>
+										<tr>
+											<td>WIN + Del</td>
+											<td>Empties the Recycle Bin<br /><br /><small>Empties the Recycle Bin without confirmation dialog</td>
+										</tr>
+
+
+								</tbody>
+							</table>
+						</p>
+
+
+
+					<!--
+
+						*****************************************************************************************************************************
+						*****************************************************************************************************************************
+						*****************************************************************************************************************************
+
+					-->
+					</td>
+					<td width="50%">
+					<!--
+
+						*****************************************************************************************************************************
+						*****************************************************************************************************************************
+						*****************************************************************************************************************************
+
+					-->
+
+						<!--
+
+							☼ Special Character HotKeys Toggle
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="special_chars_toggle"></a>☼ Special Character HotKeys Toggle</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+									<!-- WIN + F8 - Toggle between Spanish and German Overlapping Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Toggle Spanish / German Characters</center></td>
+										</tr>
+										<tr>
+											<td>WIN + F8</td>
+											<td>Toggle between Spanish and German Overlapping Characters<br /><br /><small>For characters that overlap ( ALT + a o and u ) for German and Spanish, you can toggle which sub-set you want to use with this hotkey.<br /><br /><b>Note</b>: You clicked the notification to reach this file!</td>
+										</tr>
+
+								</tbody>
+							</table>
+						</p>
+
+
+						<!--
+
+							☼ Language Specific Characters
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="language_chars"></a>☼ Language Specific Characters</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+									<!-- ALT + a / o / u / s && ALT + SHIFT + a / o / u - German Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>German Characters</center></td>
+										</tr>
+										<tr>
+											<td>ALT + a / o / u / s<br /><br />ALT + SHIFT + a / o / u</td>
+											<td><small>ä / ö / ü / ß<br /><br />Ä / Ö / Ü<br /><br />Overlapped: ä / ö / ü</td>
+										</tr>
+
+
+									<!-- ALT + ! / ? - Spanish Punctuation -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Spanish Punctuation</center></td>
+										</tr>
+										<tr>
+											<td>ALT + ! / ?</td>
+											<td><small>¡ / ¿</td>
+										</tr>
+
+
+									<!-- ALT + a / e / i / n / o / u && ALT + SHIFT + a / e / i / n / o / u - Spanish Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Spanish Characters</center></td>
+										</tr>
+										<tr>
+											<td>ALT + a / e / i / n / o / u</td>
+											<td><small>á / é / í / ñ / ó / ú<br /><br />Overlapped: á / ó / ú</td>
+										</tr>
+
+								</tbody>
+							</table>
+						</p>
+
+
+						<!--
+
+							☼ Special Character HotKeys
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="special_chars"></a>☼ Special Character HotKeys</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+									<!-- CTRL + ALT + e / l / c - Currency Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Currency Characters</center></td>
+										</tr>
+										<tr>
+											<td>CTRL + ALT + e / l / c</td>
+											<td><small>€ / £ / ¢</td>
+										</tr>
+
+
+
+									<!-- ALT + c / r / t - Special Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Special Characters</center></td>
+										</tr>
+										<tr>
+											<td>ALT + c / r / t</td>
+											<td><small>© / ® / ™</td>
+										</tr>
+
+								</tbody>
+							</table>
+						</p>
+
+
+
+
+
+						<!--
+
+							☼ Math Characters
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="math_chars"></a>☼ Math Characters</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+
+									<!-- ALT + d / = / > / < / + / - / * / 0 / "/" - Math Characters -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Math Characters</center></td>
+										</tr>
+										<tr>
+											<td>ALT + = / > / < / + / - / * / 0 / "/" / d<br /><br />+SHIFT + D</td>
+											<td><small>≡ / ≥ / ≤ / ± / ± / √ / ø / ÷ / Δ<br /><br />δ</td>
+										</tr>
+
+								</tbody>
+							</table>
+						</p>
+
+
+
+
+
+						<!--
+
+							☼ Misc String / Character Operations
+
+						-->
+						<p>
+							<table class="hotkey_table">
+								<caption><a id="math_chars"></a>☼ Misc String / Character Operations</caption>
+								<thead>
+									<tr>
+										<th>Keys</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+
+
+
+									<!-- WIN + i - SuperString -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>SuperScript</center></td>
+										</tr>
+										<tr>
+											<td>WIN + I</td>
+											<td>
+												Converts as many characters to super-script as possible<br /><br />
+												<small>
+													0123456789+-=(n) abcdefghijklmnopqrstuvwxyz<br />
+													Becomes<br />
+													⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽ⁿ⁾ ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖxʳˢᵗ ᵘᵛʷˣʸᶻ
+												</small>
+											</td>
+										</tr>
+
+
+
+									<!-- WIN + o - SubString -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>SubScript</center></td>
+										</tr>
+										<tr>
+											<td>WIN + O</td>
+											<td>
+												Converts as many characters to sub-script as possible<br /><br />
+												<small>
+													0123456789+-=(n) abcdefghijklmnopqrstuvwxyz<br />
+													Becomes<br />
+													₀₁₂₃₄₅₆₇₈₉₊₋₌₍n₎ ₐbcdₑfghijklmnₒpqᵣstᵤᵥwₓyz
+												</small>
+											</td>
+										</tr>
+
+
+
+									<!-- WIN + p - Decimal Conversion -->
+										<tr>
+											<td colspan="2" class="td_divider"><center></center></td>
+										</tr>
+										<tr>
+											<td colspan="2"><center>Decimal Conversion</center></td>
+										</tr>
+										<tr>
+											<td>WIN + P</td>
+											<td>
+												Converts .s to ,s and vice versa ( For German to English Currency )<br /><br />
+												<small>
+													100,000,000.26464 AND 54.654.464.465.444,567<br />
+													Becomes<br />
+													100.000.000,26464 AND 54,654,464,465,444.567
+												</small>
+											</td>
+										</tr>
+
+										<!-- ALT + X - Planned or Easy Access -->
+										<p>
+											<tr>
+												<td colspan="2" class="td_divider"><center></center></td>
+											</tr>
+											<tr>
+												<td colspan="2"><center>Planned Characters?</center></td>
+											</tr>
+											<tr>
+												<td>ALT + </td>
+												<td>Planned, or just here for easy access...<br /><br /><small>▓▒░│┤╡╢╖╕║╣╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▀▐</td>
+											</tr>
+										</p>
+
+								</tbody>
+							</table>
+						</p>
+
+
+					</td>
+				</td>
+			</table>
+
+
+
+
+			<!-- ALT + X - Title
+			<table>
+				<tr>
+					<td colspan="2" class="td_divider"><center></center></td>
+				</tr>
+				<tr>
+					<td colspan="2"><center>Title</center></td>
+				</tr>
+				<tr>
+					<td>ALT + X</td>
+					<td>Brief Desc<br /><br /><small>Extended Desc</td>
+				</tr>
+			</table> -->
+
+
+	</body>
+</html>
