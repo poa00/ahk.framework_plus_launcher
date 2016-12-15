@@ -158,7 +158,7 @@ AutoLoader_Finish( )
 ;;
 AutoLoader_CreateIncludeEntry( _path )
 {
-	_data = `n`#include %_path%
+	_data = `n`#include %_path%`n
 	return _data
 }
 
@@ -168,7 +168,8 @@ AutoLoader_CreateIncludeEntry( _path )
 ;;
 AutoLoader_CreateRunEntry( _path )
 {
-	_data = `nrun %_path%
+	; _data = `nrun cmd %_path%
+	_data = `nRun, %ComSpec% /k %_path%,,Hide,__cmd`n
 	return _data
 }
 
