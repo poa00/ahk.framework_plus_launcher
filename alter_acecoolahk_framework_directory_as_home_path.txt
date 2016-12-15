@@ -1,0 +1,84 @@
+I am planning on working on a way to set up the install directory much better than how it is now for those of you that wish to use a different directory name.
+
+Setup.bat does automatically generate the path for the Documents\AutoHotkey.ahk file and you can have it semi-dynamic or static.. Edit the setup.bat file
+to change the folder-name and the AutoHotkey.ahk file will be created and properly positioned ( You will need to go ahead and move the AcecoolAHK_Framework\
+folder to where you want it so the symbolic link can be set-up - I may use this step to automatically generate a full path at a later date.. we'll see )..
+
+Setup.bat is pretty self-explanatory in terms of what to edit, and what not.. When you run it it will also show you the full-paths before any changes are made.
+If you don't want to make changes, click the X to close the command prompt instead of "pressing any key" to continue...
+
+
+For now, these are the files you need to edit inside the AcecoolAHK_Framework\ Directory where root\ is Path\To\AcecoolAHK_Framework\:
+
+------------------------------------------------------------
+------------		Important Files Index		------------
+------------------------------------------------------------
+	root\framework_launcher.ahk
+	root\_assets\autoloader\run_framework_base.ahk
+	root\_assets\autoloader\run_framework_full.ahk
+
+	-- These don't need to have paths unless executed out of bounds or stand-alone which they're not designed to do --
+	root\autoloader\__generate_base__.ahk
+	root\autoloader\__generate_full__.ahk
+
+--------------------------------------------------------------------
+------------		Important Files Begin Editing		------------
+--------------------------------------------------------------------
+
+	These files have lines notated and additional info... 
+
+			IF A LINE ISN'T MARKED, DO NOT CHANGE IT!!
+
+--------------------------------------------------------------------
+------------		Important Files Begin Editing		------------
+--------------------------------------------------------------------
+
+
+root\framework_launcher.ahk
+	Alter line 41 and 44 ( SetWorkingDir and #include lines ) to the path that Setup.bat generated for you ( which will be inside the Documents\AutoHotkey.ahk file )
+
+
+root\_assets\autoloader\run_framework_base.ahk
+	Alter line 41 and 44 ( SetWorkingDir and #include lines ) to the path that Setup.bat generated for you ( which will be inside the Documents\AutoHotkey.ahk file )
+
+
+root\_assets\autoloader\run_framework_full.ahk
+	Alter line 18 and 21 ( SetWorkingDir and #include lines ) to the path that Setup.bat generated for you ( which will be inside the Documents\AutoHotkey.ahk file )
+
+
+----------------------------------------------------------------
+------------		Important Files End Editing		------------
+----------------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------
+------------		Other Files Index		------------
+--------------------------------------------------------
+	root\processes\process_screenshot_win_&_notification.ahk
+
+
+----------------------------------------------------------------
+------------		Other Files Begin Editing		------------
+----------------------------------------------------------------
+
+	These files have minimal data as they are going to be changed in the near future...
+
+----------------------------------------------------------------
+------------		Other Files Begin Editing		------------
+----------------------------------------------------------------
+
+
+root\processes\process_screenshot_win_&_notification.ahk
+	Note: This is planned to be changed to use global vars / config or function with return values for some of the paths such as where to store Screenshots,
+		where to move them for them to become public, etc... As of right now there are a lot of lines that would need to be changed - this is integral to
+		DropBox using DropBox\Screenshots\ for Private Screenshots and DropBox\Public\Screenshots\ for Public Screenshots. The same can be done for OneDrive,
+		but OneDrive has a TERRIBLE system for copying public link and I want to integrate this so when you move it to public it will copy the public link
+		automatically to your clipboard, or save it to a sticky-note for easy-access... I'm open to suggestions on this..
+
+
+------------------------------------------------------------
+------------		Other Files End Editing		------------
+------------------------------------------------------------
