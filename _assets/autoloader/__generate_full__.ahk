@@ -32,6 +32,36 @@ Menu, Tray, Icon, _assets\icons\favicon_r90deg.ico
 ;; Identify the active file to use and clear it...
 AutoLoader_ResetLoader( "loader_full" )
 
+
+
+; ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! !
+; ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! !
+
+;;
+;; Enabling this directory to dynamically load all files contained within is to be done at your own risk!!! It will run shortcuts to files, it will run executables,
+;;	it will run bat files, ahk files, etc.. EVERYTHING!!! Even scripts to format your hard-drive... This feature is here for those of you that want to have the
+;;	framework load up other useful apps on startup ( such as RestartOnCrash, SysInternals ProcessExplorer, Other Portable Apps, Compiled AHK Scripts, and more )..
+;;
+;; The one form of protection I do add is to create a MessageBox question / popup for each file in the directory when the framework is generating the load-order
+;;	files. It will tell you the name of the file and if you wish to include it in the run-catalog. Yes to add it, no to skip it. You can disable this messagebox
+;;	deal by uncommenting the line with 2 trues.. To enable it, uncomment the line with 3 trues...
+;;
+
+;; Uncomment the line directly below this comment to enable the exe folder and to include everything blindly...
+; AutoLoader_ReadFiles( "addons_exe", true, true, true )
+
+;; Uncomment the line directly below this comment to enable the exe folder and to be asked about each file to include...
+AutoLoader_ReadFiles( "addons_exe", true, true )
+
+;;
+;; DO NOT UNCOMMENT BOTH LINES.. ONLY UNCOMMENT 1 LINE IF ANY!!!!
+;;
+
+; ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! !
+; ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! ! ! ! ! ! ! ! WARNING ! ! ! ! ! !
+
+
+
 ;; Read all modules \ addons into inclusion list ( These are stand-alone hotkey systems that I want to run when I run AHK such as
 ;; the DOpus Middle Click system )... the second argument true tells the loader to force the script to run as different instant and
 ;; will not use the framework base - these are 100% stand-alone scripts... I may create another load mode and change the second arg
@@ -49,11 +79,14 @@ AutoLoader_ResetLoader( "loader_full" )
 ;; instance because it may also have tray menus, etc... or was simply designed to be executed individually instead of as part of a collective..
 AutoLoader_ReadFiles( "addons_run", true )
 
+
 ;; Addon Scripts that should be included as a drag and drop file which has everything ( functions, hotkeys, etc.. or whatever.. )
 AutoLoader_ReadFiles( "addons_inc" )
 
+
 ;; Read all hotkeys into inclusion list
 AutoLoader_ReadFiles( "hotkeys" )
+
 
 ;; Finish up with the load order file...
 AutoLoader_Finish( )

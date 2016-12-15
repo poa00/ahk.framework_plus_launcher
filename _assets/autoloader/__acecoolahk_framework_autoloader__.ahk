@@ -179,6 +179,7 @@ AutoLoader_Finish( )
 AutoLoader_CreateIncludeEntry( _path )
 {
 	_data = `n`#include %_path%`n
+
 	return _data
 }
 
@@ -189,7 +190,9 @@ AutoLoader_CreateIncludeEntry( _path )
 AutoLoader_CreateRunEntry( _path )
 {
 	; _data = `nrun cmd %_path%
-	_data = `nRun, %ComSpec% /k %_path%,,Hide,__cmd`n
+	;Process, Close, `%__cmd`%
+	_data = `nRun, %ComSpec% /c %_path%,,Hide,__cmd`n
+
 	return _data
 }
 
@@ -217,19 +220,45 @@ AutoLoader_AddRun( _path )
 ;;
 ;; Loop through all files in the directory and add the Include or Run execution line to the active / working load-order file.
 ;;
-AutoLoader_ReadFiles( _dir, _run_instead := false )
+AutoLoader_ReadFiles( _dir, _run_instead := false, _is_dangerous_folder := false, _ignore_warnings := false )
 {
-	loop Files, %_dir%\*.ahk ; *\, R  ; Recurse into subfolders.
+	loop Files, %_dir%\*.* ; *\, R  ; Recurse into subfolders.
 	{
-		;; %_dir%\
-		_path = %A_WorkingDir%\%A_loopFileFullPath%
-		_path =%A_loopFileFullPath%
+		;; We can safely skip readme files / txt files... Also chm, html, etc..
+		;; May as well skip images too..
+		if A_LoopFileExt in chm,htm,html,txt,jpg,jpeg,gif,png,ico,7z,rar,zip
+			continue
 
+		;; Are we processing a dangerous folder?
+		if ( _is_dangerous_folder )
+		{
+			;; If we want to manage which protentially dangerous files we allow...
+			if ( !_ignore_warnings )
+			{
+				;; Ask whether to allow or deny the file..
+				; Ext: %A_LoopFileExt% Exe: %_run_instead% Danger: %_is_dangerous_folder% IgnoreDanger: %_ignore_warnings%
+				MsgBox, 4, Allow Running This Potentially Dangerous File?, Allow File: %A_LoopFileName% 
+
+				;; We denied the file.. skip adding it to the list..
+				IfMsgBox No
+					continue
+			}
+		}
+
+		AutoLoader_ProcessFile( A_loopFileFullPath, _run_instead )
+	}
+}
+
+
+;;
+;;
+;;
+AutoLoader_ProcessFile( _path, _run_instead := false )
+{
 		if !_run_instead
 			AutoLoader_AddInclude( _path )
 		else
 			AutoLoader_AddRun( _path )
-	}
 }
 
 
