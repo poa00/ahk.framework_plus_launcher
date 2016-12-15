@@ -52,16 +52,18 @@ Menu, Tray, Icon, _assets\icons\favicon_r180deg.ico
 ;;
 __framework_launch_commands__=
 (join&
-	__generate_base__.ahk
-	__generate_full__.ahk
-	run_framework_full.ahk
+	_assets\autoloader\__generate_base__.ahk
+	_assets\autoloader\__generate_full__.ahk
+	_assets\autoloader\run_framework_full.ahk
 )
+
 
 ;; Run each command in cmd.exe with the last being run_framework_full.ahk which loads all of the framework back-end and hotkeys, etc..
 ;; The downside to this method is the cmd.exe and cmdhost.exe will remain running for the duration of the script. It will close on script
 ;; end, and it is possible to exit the cmd.exe but it doesn't seem easily doable to be reliable enough on all client systems.. therefore I
 ;; leave it running...
-run, %comspec% /c %__framework_launch_commands__%,,Hide,__cmd
+Run, %comspec% /c %__framework_launch_commands__%,,Hide,__cmd
+
 
 ;; Exit the framework_launcher.ahk script so there isn't an upside down A in the tray for the duration of this framework being loaded...
 ExitApp

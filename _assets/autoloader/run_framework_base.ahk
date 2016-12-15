@@ -50,4 +50,4 @@ Menu, Tray, Icon, _assets\icons\favicon.ico
 ;;
 ;; Base includes...
 ;;
-#include *i _loader_base_.ahk
+#include _assets\__load_order_files__\_loader_base_.ahk

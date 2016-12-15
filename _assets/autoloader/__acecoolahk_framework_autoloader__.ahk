@@ -8,7 +8,7 @@
 ;;
 global AUTO_LOADER_ID
 AUTO_LOADER_ID = default_id
-SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework\
+
 
 ;;
 ;; Assume each line is a file and run #include on it ( this won't work most likely so I need to evaluate the file instead as ahk and save data as #include .. )
@@ -27,7 +27,7 @@ FileIO_ReadFile( _path )
 	FileRead, _data, %_path%
 
 	if !_data
-		return "X"
+		return "X ERROR IN __AcecoolAHK_Framework_AutoLoader__.ahk FileIO_ReadFile( Path: " . _path . " ) X"
 	else
 		return _data
 }
@@ -100,8 +100,28 @@ String_Repeat( _string, _times )
 AutoLoader_ActiveLoaderFile( )
 {
 	; return "_assets\_autoloader\" . AUTO_LOADER_ID . ".ahk"
-	return "_" . AUTO_LOADER_ID . "_.ahk"
+	return "_assets\__load_order_files__\_" . AUTO_LOADER_ID . "_.ahk"
 }
+
+
+;;
+;; Helper Function to include -- won't work.. --
+;;
+; AutoLoader_IncludeLoaderFile( _id )
+; {
+	; AutoLoader_SetLoaderID( _id )
+	; #include AutoLoader_ActiveLoaderFile( )
+; }
+
+
+;;
+;; Helper Function to include -- won't work.. --
+;;
+AutoLoader_SetLoaderID( _id )
+{
+	AUTO_LOADER_ID := _id
+}
+
 
 
 ;;
@@ -109,8 +129,8 @@ AutoLoader_ActiveLoaderFile( )
 ;;
 AutoLoader_ResetLoader( _id )
 {
-	AUTO_LOADER_ID := _id
-
+	;; Set thhe Autoloader File ID...
+	AutoLoader_SetLoaderID( _id )
 
 	; MsgBox, Reset %_id%
 	;; Delete load_order.ahk if it exists...
@@ -123,13 +143,13 @@ AutoLoader_ResetLoader( _id )
 		; FileIO_Delete, AutoLoader_ActiveLoaderFile( )
 
 	;; Copy __default__.ahk and name that copy as load_order.ahk ( The base for the new load-order )
-	FileIO_CopyFile( "_assets\_autoloader\__default__.ahk", AutoLoader_ActiveLoaderFile( ), true )
+	FileIO_CopyFile( "_assets\templates\load_order_default.ahk", AutoLoader_ActiveLoaderFile( ), true )
 
 	;; Add a few newlines before adding __pre_load_order__ so header ( template ) follows my code-standards ( double-newline gap between it and PRE )...
 	FileIO_AddNewLines( 2 )
 
 	;; Append the contents of __pre_load_order__.ahk to load_order.ahk
-	FileIO_Append( AutoLoader_ActiveLoaderFile( ), FileIO_ReadFile( "_assets\_autoloader\__pre_load_order__.ahk" ) )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( ), FileIO_ReadFile( "_assets\templates\pre_load_order.ahk" ) )
 
 	;; Add a few newlines after adding __pre_load_order__ so it won't interfere with first-include and follows my code-standards ( double-newline gap )...
 	FileIO_AddNewLines( 2 )
@@ -145,7 +165,7 @@ AutoLoader_Finish( )
 	FileIO_AddNewLines( 3 )
 
 	;; Append the contents of __post_load_order__.ahk to load_order.ahk after everything has loaded...
-	FileIO_Append( AutoLoader_ActiveLoaderFile( ), FileIO_ReadFile( "_assets\_autoloader\__post_load_order__.ahk" ) )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( ), FileIO_ReadFile( "_assets\templates\post_load_order.ahk" ) )
 
 	;;
 	; #include AutoLoader_ActiveLoaderFile( )
@@ -195,14 +215,15 @@ AutoLoader_AddRun( _path )
 
 
 ;;
-;;
+;; Loop through all files in the directory and add the Include or Run execution line to the active / working load-order file.
 ;;
 AutoLoader_ReadFiles( _dir, _run_instead := false )
 {
 	loop Files, %_dir%\*.ahk ; *\, R  ; Recurse into subfolders.
 	{
-		;;%_dir%\
-		_path = %A_ScriptDir%\%A_loopFileFullPath%
+		;; %_dir%\
+		_path = %A_WorkingDir%\%A_loopFileFullPath%
+		_path =%A_loopFileFullPath%
 
 		if !_run_instead
 			AutoLoader_AddInclude( _path )

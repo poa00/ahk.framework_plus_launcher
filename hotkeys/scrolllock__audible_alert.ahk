@@ -16,7 +16,8 @@ return
 
 
 ;;
-;; Simple Audible Alert for ScrollLock
+;; Simple Audible Alert for ScrollLock using Ternary Operation to switch between On and Off ( as Audio has it in the title )
+;; You could just as easily specify a full-audio path in place of On or Off, or use different text for the toggle-states, etc..
 ;;
 ; *ScrollLock::
 	; _state := ( GetKeyState( "ScrollLock", "T" ) ) ? "On":"Off"
@@ -29,7 +30,7 @@ return
 
 
 ;;
-;; Leaving this logic in in case you want to use a different bit of audio...
+;; Leaving this logic in in case you want to use different audio files which don't contain On / Off in the title and if you prefer if conditions..
 ;;
 ; *ScrollLock::
 	; if ( !GetKeyState( "ScrollLock", "T" ) )

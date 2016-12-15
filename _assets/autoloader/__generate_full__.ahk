@@ -4,10 +4,16 @@
 
 
 ;;
+;; Set the working directory to be that of my AHK Scripts folder for easy includes...
 ;; As these file generators may be executed independently of the loader, set up the paths ( this may change to simplify things )
 ;;
-SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework\
-#include %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework\
+
+;; Set the working directory to be that of my AHK Scripts folder for easy includes...
+; SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
+
+;; Normally isn't needed with a properly formulated SetWorkingDir; using it because of compatibility issues...
+; #include %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
+
 
 ;; Menu Icon...
 Menu, Tray, Icon, _assets\icons\favicon_r90deg.ico
@@ -16,7 +22,7 @@ Menu, Tray, Icon, _assets\icons\favicon_r90deg.ico
 ;;
 ;; Include the AutoLoader Function List
 ;;
-#include  __acecoolahk_framework_autoloader__.ahk
+#include  _assets\autoloader\__acecoolahk_framework_autoloader__.ahk
 
 
 ;;
@@ -37,7 +43,14 @@ AutoLoader_ResetLoader( "loader_full" )
 ;; NOTE: As long as there are no files #include'd prior to the "run" commands, this works.. and because base and full load-orders are separate files, this
 ;;	should work flawlessly for now...
 ;;
-AutoLoader_ReadFiles( "addons", true )
+
+;; Addon Scripts that should be executed as separate instances - Stand-Alone scripts such as Columbus App Launcher, Radial Menus, etc...
+;; Basically for standalone scripts that have everything ( functions, hotkeys, whatever.. etc.. ) but which should be run as a separate
+;; instance because it may also have tray menus, etc... or was simply designed to be executed individually instead of as part of a collective..
+AutoLoader_ReadFiles( "addons_run", true )
+
+;; Addon Scripts that should be included as a drag and drop file which has everything ( functions, hotkeys, etc.. or whatever.. )
+AutoLoader_ReadFiles( "addons_inc" )
 
 ;; Read all hotkeys into inclusion list
 AutoLoader_ReadFiles( "hotkeys" )

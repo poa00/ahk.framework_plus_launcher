@@ -13,12 +13,16 @@
 ;;
 ;; Set the working directory to be that of my AHK Scripts folder for easy includes...
 ;;
-SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework\
-#include %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework\
+
+;; Set the working directory to be that of my AHK Scripts folder for easy includes...
+SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
+
+;; Normally isn't needed with a properly formulated SetWorkingDir; using it because of compatibility issues...
+#include %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
 
 
 ;;
 ;; Run the base framework then run the full-framework extras...
 ;;
-#include run_framework_base.ahk
-#include *i _loader_full_.ahk
+#include _assets\autoloader\run_framework_base.ahk
+#include _assets\__load_order_files__\_loader_full_.ahk
