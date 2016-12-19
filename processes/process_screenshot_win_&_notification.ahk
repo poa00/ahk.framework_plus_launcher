@@ -4,6 +4,20 @@
 
 
 ;;
+;; Config
+;;
+global DROPBOX_LINK
+https://dl.dropboxusercontent.com/u/26074909/Public/Screenshots/notepad++_screenshot_20161219115235_4529.png
+
+;;
+;; Public DropBox Link - replace XXXXX with your number / id ( Right click something in your public folder > Copy Public Link > Paste it below after HERE: 
+;; HERE:
+;; Now after /u/ copy the numbers up to / and replace XXXXXX below with that number...
+;;
+DROPBOX_LINK = https://dl.dropboxusercontent.com/u/XXXXXX
+
+
+;;
 ;; Set the working directory to be that of my AHK Scripts folder for easy includes...
 ;;
 
@@ -54,6 +68,10 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 
 			;; Open the file...
 			run %_path%..\Public\Screenshots\%_name%
+
+			;; Copy the public link to the clipboard..
+			;; TODO: URLENCODE the name ( To support spaces, etc.. just in case I change the string_safe function )...
+			Clipboard = %DROPBOX_LINK%/Screenshots/%_name%
 		}
 		IfMsgBox No
 		{
