@@ -87,6 +87,9 @@ AutoLoader_ReadFiles( "addons_inc" )
 ;; Read all hotkeys into inclusion list
 AutoLoader_ReadFiles( "hotkeys" )
 
+;; Read all hooks / callbacks into inclusion list
+AutoLoader_ReadFiles( "hooks" )
+
 
 ;; Finish up with the load order file...
 AutoLoader_Finish( )

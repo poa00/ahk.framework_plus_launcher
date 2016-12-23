@@ -97,10 +97,12 @@ String_Repeat( _string, _times )
 ;;
 ;;
 ;;
-AutoLoader_ActiveLoaderFile( )
+AutoLoader_ActiveLoaderFile( _file = false )
 {
+	;; So we can use this directory and change the file dynamically if needed
+	_file := ( _file ) ? AUTO_LOADER_ID . "_" . _file :AUTO_LOADER_ID
 	; return "_assets\_autoloader\" . AUTO_LOADER_ID . ".ahk"
-	return "_assets\__load_order_files__\_" . AUTO_LOADER_ID . "_.ahk"
+	return "_assets\__load_order_files__\_" . _file . "_.ahk"
 }
 
 
@@ -136,11 +138,15 @@ AutoLoader_ResetLoader( _id )
 	;; Delete load_order.ahk if it exists...
 	if FileExist( AutoLoader_ActiveLoaderFile( ) )
 		FileIO_Delete( AutoLoader_ActiveLoaderFile( ) )
+	if FileExist( AutoLoader_ActiveLoaderFile( "run_entries" ) )
+		FileIO_Delete( AutoLoader_ActiveLoaderFile( "run_entries" ) )
+	if FileExist( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ) )
+		FileIO_Delete( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ) )
 
-	;; Create the file...
-
-	; IfExist, AutoLoader_ActiveLoaderFile( )
-		; FileIO_Delete, AutoLoader_ActiveLoaderFile( )
+	;; Init all files - The base file, the file which contains all of the Run commands, and the file which has all of the RunFuncIfExists calls...
+	FileIO_Append( AutoLoader_ActiveLoaderFile( ), "" )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( "run_entries" ), "" )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ), "" )
 
 	;; Copy __default__.ahk and name that copy as load_order.ahk ( The base for the new load-order )
 	FileIO_CopyFile( "_assets\templates\load_order_default.ahk", AutoLoader_ActiveLoaderFile( ), true )
@@ -153,6 +159,10 @@ AutoLoader_ResetLoader( _id )
 
 	;; Add a few newlines after adding __pre_load_order__ so it won't interfere with first-include and follows my code-standards ( double-newline gap )...
 	FileIO_AddNewLines( 2 )
+
+	;; Include our Run entries and oninit entries for this base...
+	AutoLoader_AddInclude( AutoLoader_ActiveLoaderFile( "run_entries" ) )
+	AutoLoader_AddInclude( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ) )
 }
 
 
@@ -174,24 +184,28 @@ AutoLoader_Finish( )
 
 
 ;;
-;; Creates an Include Entry for our load_order.ahk File
+;; Appends an Include Entry to our load_order.ahk file...
 ;;
-AutoLoader_CreateIncludeEntry( _path )
+AutoLoader_AddRunOnInitFunc( _path )
 {
-	_data = `n`#include %_path%`n
-
-	return _data
+	;; Append the contents of __post_load_order__.ahk to load_order.ahk after everything has loaded...
+	FileIO_Append( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ), AutoLoader_CreateRunOnInitFuncEntry( _path ) )
 }
 
 
 ;;
 ;; Creates an Include Entry for our load_order.ahk File
 ;;
-AutoLoader_CreateRunEntry( _path )
+AutoLoader_CreateRunOnInitFuncEntry( _path )
 {
-	; _data = `nrun cmd %_path%
-	;Process, Close, `%__cmd`%
-	_data = `nRun, %ComSpec% /c %_path%,,Hide,__cmd`n
+	;; Because of blocking calls, we are going to add a few lines which checks for a function-named OnInit_<filename>( ) perfect for initializing default config...
+	; SplitPath, InputVar [, OutFileName, OutDir, OutExtension, OutNameNoExt, OutDrive]
+	SplitPath, _path,,,, _file,
+
+	;; Include the file
+	_data = `nRunFuncIfExists( "OnInit_%_file%" )`n
+
+
 
 	return _data
 }
@@ -208,12 +222,43 @@ AutoLoader_AddInclude( _path )
 
 
 ;;
+;; Creates an Include Entry for our load_order.ahk File
+;;
+AutoLoader_CreateIncludeEntry( _path )
+{
+	;; Because of blocking calls, we are going to add a few lines which checks for a function-named OnInit_<filename>( ) perfect for initializing default config...
+	; SplitPath, InputVar [, OutFileName, OutDir, OutExtension, OutNameNoExt, OutDrive]
+	SplitPath, _path,,,, _file,
+
+	;; Include the file
+	_data = `n`#include %_path%`n
+
+
+
+	return _data
+}
+
+
+;;
 ;; Appends an Include Entry to our load_order.ahk file...
 ;;
 AutoLoader_AddRun( _path )
 {
 	;; Append the contents of __post_load_order__.ahk to load_order.ahk after everything has loaded...
-	FileIO_Append( AutoLoader_ActiveLoaderFile( ), AutoLoader_CreateRunEntry( _path ) )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( "run_entries" ), AutoLoader_CreateRunEntry( _path ) )
+}
+
+
+;;
+;; Creates an Include Entry for our load_order.ahk File
+;;
+AutoLoader_CreateRunEntry( _path )
+{
+	; _data = `nrun cmd %_path%
+	;Process, Close, `%__cmd`%
+	_data = `nRun, %ComSpec% /c %_path%,,Hide,__cmd`n
+
+	return _data
 }
 
 
@@ -256,9 +301,14 @@ AutoLoader_ReadFiles( _dir, _run_instead := false, _is_dangerous_folder := false
 AutoLoader_ProcessFile( _path, _run_instead := false )
 {
 		if !_run_instead
+		{
+			AutoLoader_AddRunOnInitFunc( _path )
 			AutoLoader_AddInclude( _path )
+		}
 		else
+		{
 			AutoLoader_AddRun( _path )
+		}
 }
 
 
