@@ -6,10 +6,7 @@
 ;;
 ;; Declaration
 ;;
-; global ChangeLogConfig
 
-;; Read the version
-FileRead, _version, version.txt
 
 ;;
 ;; Config - Set up default values ( Not the current value so first-run will open the dialog )...
@@ -17,22 +14,26 @@ FileRead, _version, version.txt
 ;;
 OnInit_acecoolahk_framework_changelog_dialog( )
 {
+	;; Setup default values
 	configuration.SetDefaultValue( "AcecoolAHK_Framework", "version_ran", "0.0.0" )
+
+	;; Read the version
+	FileRead, _version, version.txt
+
+	;; Determine whether or not to open the changelog dialog window...
+	_last_changelog_displayed:=configuration.ReadValue( "AcecoolAHK_Framework", "version_ran" )
+	if ( _version != _last_changelog_displayed )
+	{
+		;; Update the version in the file so the script knows the last-version executed...
+		configuration.SetValue( "AcecoolAHK_Framework", "version_ran", _version )
+
+		;; Open up a dialog window and explain the differences...
+		MsgBox, You're running a new version ( %_version% - upgraded from %_last_changelog_displayed% ) of AcecoolAHK_Framework! This will be a changelog dialog window soon with the option to never open it again ( via checkbox on the window which will update config.ini - but I recommend allowing it to open as it only opens once per new-version installed )
+	}
 }
 
 
-;;
-;; Determine whether or not to open the changelog dialog window...
-;;
-_last_changelog_displayed:=configuration.ReadValue( "AcecoolAHK_Framework", "version_ran" )
-if ( _version != _last_changelog_displayed )
-{
-	;; Update the version in the file so the script knows the last-version executed...
-	configuration.SetValue( "AcecoolAHK_Framework", "version_ran", _version )
 
-	;; Open up a dialog window and explain the differences...
-	MsgBox, You're running a new version ( %_version% - upgraded from %_last_changelog_displayed% ) of AcecoolAHK_Framework! This will be a changelog dialog window soon with the option to never open it again ( via checkbox on the window which will update config.ini - but I recommend allowing it to open as it only opens once per new-version installed )
-}
 
 
 
