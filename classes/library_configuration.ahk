@@ -76,7 +76,7 @@ class configuration
 
 		; __filename:=this.GetFilename( )
 		;;IniWrite, Value, Filename, Section, Key
-		IniWrite, %_value%, config.ini, %_section%, `t%_key%
+		IniWrite, %_value%, config.ini, %_section%, %_key%
 
 		print( "Config > SetValue > Into File: > '" CONFIGURATION_FILE "' Section: '" _section "' > Key: '" _key "' Value: '" _value "'" )
 	}
