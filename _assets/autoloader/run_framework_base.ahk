@@ -35,13 +35,11 @@ SendMode Input
 
 ;;
 ;; Set the working directory to be that of my AHK Scripts folder for easy includes...
+;; Note: This file is NOT meant to be run by itself... It is meant to be included from another script after that script sets the working
+;;	directory to be the same as the root directory of this framework... If not done correctly, there will be errors. See the default
+;;	screenshot processes\ file for an example...
 ;;
 
-;; Set the working directory to be that of my AHK Scripts folder for easy includes...
-SetWorkingDir, %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
-
-;; Normally isn't needed with a properly formulated SetWorkingDir; using it because of compatibility issues...
-#include %A_AppData%\..\..\Dropbox\AcecoolAHK_Framework
 
 ;; Set the default tray icon... eg: Menu, Tray, Icon, shell32.dll, 44 ;; Favorites Star
 Menu, Tray, Icon, _assets\icons\favicon.ico

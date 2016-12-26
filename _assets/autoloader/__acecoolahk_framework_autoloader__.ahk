@@ -231,7 +231,7 @@ AutoLoader_CreateIncludeEntry( _path )
 	SplitPath, _path,,,, _file,
 
 	;; Include the file
-	_data = `n`#include %_path%`n
+	_data = `n`#include %A_WorkingDir%\%_path%`n
 
 
 
@@ -290,7 +290,8 @@ AutoLoader_ReadFiles( _dir, _run_instead := false, _is_dangerous_folder := false
 			}
 		}
 
-		AutoLoader_ProcessFile( A_loopFileFullPath, _run_instead )
+		; AutoLoader_ProcessFile( A_LoopFileLongPath, _run_instead ) ;;  . "\" . A_loopFileFullPath
+		AutoLoader_ProcessFile( A_loopFileFullPath, _run_instead ) ;;  . "\" . 
 	}
 }
 
