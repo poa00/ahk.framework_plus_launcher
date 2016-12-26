@@ -62,7 +62,7 @@ class string
 		;; Remove non-word characters...
 		_text := RegExReplace( _text, "[\W-]", _replacement )
 		_text := this.replace_spaces( _text )
-		_text := this.replace_underscores( _text )
+		_text := this.replace_duplicate_underscores( _text )
 
 		return _text
 	}
@@ -93,9 +93,20 @@ class string
 	;;
 	;; Removes Duplicate Underscores.
 	;;
-	replace_underscores( _text, _replacement="" )
+	replace_underscores( _text, _replacement="_" )
 	{
 		_text := RegExReplace( _text, "_+", _replacement )
+
+		return _text
+	}
+
+
+	;;
+	;; Removes Duplicate Underscores.
+	;;
+	replace_duplicate_underscores( _text, _replacement="_" )
+	{
+		_text := RegExReplace( _text, "__+", _replacement )
 
 		return _text
 	}
