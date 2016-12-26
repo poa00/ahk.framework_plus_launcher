@@ -25,7 +25,8 @@ class configuration
 	;;
 	__New( )
 	{
-		print( "Config > Init / __New" )
+		;; Debugging
+		; debug.print( "Config > Init / __New" )
 
 	}
 
@@ -49,7 +50,9 @@ class configuration
 
 		; __filename := this.GetFilename( )
 		IniRead, _return, config.ini, %_section%, %_key%, KEY_NOT_FOUND
-		print( "Config > ReadValue > From File: > '" CONFIGURATION_FILE "' Section: '" _section "' > Key: '" _key "' Value: '" _return "'" )
+
+		;; Debugging
+		; debug.print( "Config > ReadValue > From File: > '" CONFIGURATION_FILE "' Section: '" _section "' > Key: '" _key "' Value: '" _return "'" )
 
 		return _return
 	}
@@ -78,7 +81,8 @@ class configuration
 		;;IniWrite, Value, Filename, Section, Key
 		IniWrite, %_value%, config.ini, %_section%, %_key%
 
-		print( "Config > SetValue > Into File: > '" CONFIGURATION_FILE "' Section: '" _section "' > Key: '" _key "' Value: '" _value "'" )
+		;; Debugging
+		; debug.print( "Config > SetValue > Into File: > '" CONFIGURATION_FILE "' Section: '" _section "' > Key: '" _key "' Value: '" _value "'" )
 	}
 
 
@@ -87,7 +91,10 @@ class configuration
 	;;
 	SetDefaultValue( _section, _key, _value )
 	{
-		print( "SetDefaultValue( " . _section . ", " . _key . ", " . _value . " )" )
+		;; Debugging
+		; debug.print( "SetDefaultValue( " . _section . ", " . _key . ", " . _value . " )" )
+
+		;; If the key doesn't exist.. add it..
 		if ( !this.KeyExists( _section, _key ) )
 			this.SetValue( _section, _key, _value )
 	}
@@ -101,12 +108,16 @@ class configuration
 		; __filename:=this.__filename
 		ifExist, %CONFIGURATION_FILE%
 		{
-			print( "Configuration File Exists!" )
+			;; Debugging
+			; debug.print( "Configuration File Exists!" )
+
 			return true
 		}
 		else
 		{
-			print( "Configuration File Doesn't Exist!" )
+			;; Debugging
+			; debug.print( "Configuration File Doesn't Exist!" )
+
 			return false
 		}
 	}

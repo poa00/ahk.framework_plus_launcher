@@ -21,7 +21,7 @@ ScreenshotName( )
 		_name := SubStr( _name, ( _match > 1 ) ? _match + 2 : 1 )
 
 	Random, _random, 0, 9999
-	_name := StringSafe( _name )
+	_name := string.safe( _name )
 	_name_clean := _name "_screenshot_" A_Now "_" _random ".png"
 
 	return _name_clean

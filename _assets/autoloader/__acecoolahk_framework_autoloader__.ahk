@@ -50,7 +50,7 @@ FileIO_AddNewLines( _times )
 	_times := ( _times is digit ) ? _times : 1
 
 	;; "_assets\_autoloader\" . 
-	FileIO_Append( AutoLoader_ActiveLoaderFile( ), String_Repeat( "`n", _times ) )
+	FileIO_Append( AutoLoader_ActiveLoaderFile( ), string.repeat( "`n", _times ) )
 }
 
 
@@ -60,32 +60,6 @@ FileIO_AddNewLines( _times )
 FileIO_Delete( _path )
 {
 	FileDelete, %_path%
-}
-
-
-;;
-;; String Functions
-;;
-
-
-;;
-;; Repeat a string n _times...
-;;
-String_Repeat( _string, _times )
-{
-	;; Predeclare
-	_output := ""
-
-	;; In case 0 or negative number was used...
-	if _times < 1
-		return _output
-
-	;; Repeat the string n _times
-	loop, %_times%
-		_output .= _string
-
-	;; Return the newly concatenated repeated string
-	return _output
 }
 
 
@@ -103,6 +77,15 @@ AutoLoader_ActiveLoaderFile( _file = false )
 	_file := ( _file ) ? AUTO_LOADER_ID . "_" . _file :AUTO_LOADER_ID
 	; return "_assets\_autoloader\" . AUTO_LOADER_ID . ".ahk"
 	return "_assets\__load_order_files__\_" . _file . "_.ahk"
+}
+
+
+;;
+;;
+;;
+AutoLoader_ActiveLoaderOnInitFile( )
+{
+	return "ReadMe_OnInit_" . AUTO_LOADER_ID . ".ahk.txt"
 }
 
 
@@ -138,15 +121,20 @@ AutoLoader_ResetLoader( _id )
 	;; Delete load_order.ahk if it exists...
 	if FileExist( AutoLoader_ActiveLoaderFile( ) )
 		FileIO_Delete( AutoLoader_ActiveLoaderFile( ) )
+
 	if FileExist( AutoLoader_ActiveLoaderFile( "run_entries" ) )
 		FileIO_Delete( AutoLoader_ActiveLoaderFile( "run_entries" ) )
+
 	if FileExist( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ) )
 		FileIO_Delete( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ) )
+	if FileExist( AutoLoader_ActiveLoaderOnInitFile( ) )
+		FileIO_Delete( AutoLoader_ActiveLoaderOnInitFile( ) )
 
 	;; Init all files - The base file, the file which contains all of the Run commands, and the file which has all of the RunFuncIfExists calls...
 	FileIO_Append( AutoLoader_ActiveLoaderFile( ), "" )
 	FileIO_Append( AutoLoader_ActiveLoaderFile( "run_entries" ), "" )
 	FileIO_Append( AutoLoader_ActiveLoaderFile( "oninitfunc_calls" ), "" )
+	FileIO_Append( AutoLoader_ActiveLoaderOnInitFile( ), "" )
 
 	;; Copy __default__.ahk and name that copy as load_order.ahk ( The base for the new load-order )
 	FileIO_CopyFile( "_assets\templates\load_order_default.ahk", AutoLoader_ActiveLoaderFile( ), true )
@@ -203,9 +191,11 @@ AutoLoader_CreateRunOnInitFuncEntry( _path )
 	SplitPath, _path,,,, _file,
 
 	;; Include the file
-	_data = `nRunFuncIfExists( "OnInit_%_file%" )`n
+	_name:=string.safe( _file )
+	_data = `nutil.RunFuncIfExists( "OnInit_%_name%" )`n
 
-
+	;; Add the helper data...
+	FileIO_Append( AutoLoader_ActiveLoaderOnInitFile( ), ";;`n;; OnInit Function for File: " . _path . "`n;;`nOnInit_" . _name . "( )`n{`n`n`t;; Contents`n`n}`n`n`n" )
 
 	return _data
 }

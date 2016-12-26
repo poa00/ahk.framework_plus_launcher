@@ -1,6 +1,11 @@
 ﻿;;
 ;; AutoHotkey Script - Josh 'Acecool' Moser
 ;;
+
+
+;;
+;; Used for debugging - displays example of what this library can do...
+;;
 ; math.example( )
 
 
@@ -214,6 +219,47 @@ class math
 	sqrt( _value )
 	{
 		return sqrt( _value )
+	}
+
+
+	;;
+	;; Simple Math Functions
+	;;
+
+
+	;;
+	;; Simple Adder...
+	;;
+	add( _value, _value2 )
+	{
+		return _value + _value2
+	}
+
+
+	;;
+	;; Simple Subtraction...
+	;;
+	sub( _value, _value2 )
+	{
+		return _value - _value2
+	}
+
+
+	;;
+	;; Simple Multiplication...
+	;;
+	mul( _value, _value2 )
+	{
+		return _value * _value2
+	}
+
+
+	;;
+	;; Simple Division...
+	;;
+	div( _value, _value2 )
+	{
+		return _value / _value2
 	}
 
 

@@ -16,6 +16,15 @@ Menu, Tray, Icon, _assets\icons\favicon_r270deg.ico
 ;;
 ;; Include the AutoLoader Function List
 ;;
+#include  classes\library_autoloader.ahk
+#include  classes\library_configuration.ahk
+#include  classes\library_debug.ahk
+#include  classes\library_fileio.ahk
+#include  classes\library_julian_date.ahk
+#include  classes\library_math.ahk
+#include  classes\library_string.ahk
+#include  classes\library_time.ahk
+#include  classes\library_util.ahk
 #include  _assets\autoloader\__acecoolahk_framework_autoloader__.ahk
 
 
