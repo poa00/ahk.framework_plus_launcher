@@ -4,6 +4,16 @@
 
 
 ;;
+;; Notes:
+;; If I neglect to give credit where credit is due, please contact me. The old forums have been shut down and I haven't
+;;	been able to find all of the old resources I've used, and I did write quite a bit in my AHK Folder - My Name at the
+;;	top is part of my Default AHK Template - if someone else created something I will use their name at the top and / or
+;;	also above the function or script / hotkey...
+;; Uses older Gdip.ahk - will update soon.
+;;
+
+
+;;
 ;; Config
 ;;
 
@@ -99,26 +109,68 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 
 
 ;;
+;; Window Screenshot Function... Save screenshot from defined coordinates.
+;;
+; Screenshot( _path, screen )
+; {
+	; _pToken := Gdip_Startup( )
+	; _raster := 0x40000000 + 0x00CC0020
+
+	; _name_clean := ScreenshotName( )
+	; Gdip_SaveBitmapToFile( _pBitmap, _path _name_clean, 100 )
+	; Gdip_DisposeImage( _pBitmap )
+	; Gdip_Shutdown( _pToken )
+	; return _name_clean
+; }
+
+
+;;
+;; Clean Screenshot Name
+;;
+ScreenshotName( )
+{
+	WinGet, hwnd, ID, A
+	WinGetActiveTitle, _name
+	StringLower, _name, _name
+
+	_match := RegExMatch( _name, "-(.*)$", __, 1 )
+	_chatmatch := RegExMatch( _name, "-(.*) - chat$i", __, 1 )
+
+	if ( RegExMatch( _name, "chat$", __, 1 ) > 0 )
+		_name := SubStr( _name, ( _chatmatch > 1 ) ? _chatmatch + 2 : 1 )
+	else
+		_name := SubStr( _name, ( _match > 1 ) ? _match + 2 : 1 )
+
+	Random, _random, 0, 9999
+	_name := string.safe( _name )
+	_name_clean := _name "_screenshot_" A_Now "_" _random ".png"
+
+	return _name_clean
+}
+
+
+;;
 ;; Execute the process / Job... ie take the screenshot, save it and add the callback hook.. Allow this to run until the callback closes it...
 ;;
+	;; Read our Private Screenshot path from config.ini
+	_path := configuration.ReadValue( "Cloud", "PrivateScreenshotsPath" )
 
-;; Usable space within the area...
-; screen := "0|0|" . A_ScreenWidth . "|" . A_ScreenHeight ; X|Y|W|H
+	;; GDIP Call - Usable space within the area...
+	; screen := "0|0|" . A_ScreenWidth . "|" . A_ScreenHeight ; X|Y|W|H
 
-;; Parse the string to create a safe but concise name for the photo
-_name := Screenshot( _path, screen )
-_path := configuration.ReadValue( "Cloud", "PrivateScreenshotsPath" )
+	;; Parse the string to create a safe but concise name for the photo
+	_name := ScreenshotName( ) ;; Screenshot( _path, screen )
 
-; _name := "test" ;; ScreenshotName( )
-run "_assets\bin\NirCmd_x64\nircmd.exe" savescreenshotwin %_path%%_name%
+	;; Take a screenshot of the active window and save it in our private screenshots folder with a unique name...
+	run "_assets\bin\NirCmd_x64\nircmd.exe" savescreenshotwin %_path%%_name%
 
-;; Hook into the toast / callback...
-OnMessage( 0x404, Func( "Toast_Callback_Screenshot" ) )
+	;; Hook into the toast / callback...
+	OnMessage( 0x404, Func( "Toast_Callback_Screenshot" ) )
 
-;; Notify the user
-TrayTip, ScreenShot Captured, "%_path%%_name%" Saved!
+	;; Notify the user
+	notify.TrayTip( _path . _name . " Saved!", "ScreenShot Captured" )
 
-;; Speech
-; _text := "Screenshot Captured and has been saved to: " A_UserName ", Dropbox, Screenshots.. Click the tray-notification to view the file."
-; run "OneDrive\Apps\NirCMD\nircmd.exe" speak text "%_text%"
+	;; Text to Speech ( If you want it... )
+	; _text := "Screenshot Captured and has been saved to: " A_UserName ", Dropbox, Screenshots.. Click the tray-notification to view the file."
+	; run "_assets\bin\NirCmd_x64\nircmd.exe" speak text "%_text%"
 return
