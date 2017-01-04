@@ -6,15 +6,15 @@
 ;;
 ;; OnInit - setup config default so user can set their dropbox id without editing scripts...
 ;;
-OnInit_hotkey_screencapture_current_window__alt_f12( )
+OnInit_hotkey_screencapture_current_window_alt_f12( )
 {
-	configuration.SetDefaultValue( "Cloud", "DropBox_UserID", 12345678 )
-	configuration.SetDefaultValue( "Cloud", "PrivateScreenshotsPath", A_AppData . "\..\..\Dropbox\Screenshots\" )
-	configuration.SetDefaultValue( "Cloud", "PublicScreenshotsPath", A_AppData . "\..\..\Dropbox\Public\Screenshots\" )
+	config.SetDefault( "Cloud", "DropBox_UserID", 12345678 )
+	config.SetDefault( "Cloud", "PrivateScreenshotsPath", A_AppData . "\..\..\Dropbox\Screenshots\" )
+	config.SetDefault( "Cloud", "PublicScreenshotsPath", A_AppData . "\..\..\Dropbox\Public\Screenshots\" )
 
 	;; Todo: Create folders if not exists
-	; fileio.CreateFolder( configuration.ReadValue( "Cloud", "PrivateScreenshotsPath" ) )
-	; fileio.CreateFolder( configuration.ReadValue( "Cloud", "PublicScreenshotsPath" ) )
+	; file.CreateFolder( config.Get( "Cloud", "PrivateScreenshotsPath" ) )
+	; file.CreateFolder( config.Get( "Cloud", "PublicScreenshotsPath" ) )
 }
 
 

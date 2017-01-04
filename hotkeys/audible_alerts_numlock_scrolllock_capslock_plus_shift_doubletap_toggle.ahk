@@ -9,13 +9,13 @@
 ;;
 OnInit_audible_alerts_numlock_scrolllock_capslock_plus_shift_doubletap_toggle( )
 {
-	configuration.SetDefaultValue( "DoubleTapSpeeds", "ToggleCapsLockViaShift", 150 )
-	configuration.SetDefaultValue( "AudibleAlerts", "NUMLOCK_ON", A_WinDir "\Media\Speech On.wav" )
-	configuration.SetDefaultValue( "AudibleAlerts", "NUMLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
-	configuration.SetDefaultValue( "AudibleAlerts", "SCROLLLOCK_ON", A_WinDir "\Media\Speech On.wav" )
-	configuration.SetDefaultValue( "AudibleAlerts", "SCROLLLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
-	configuration.SetDefaultValue( "AudibleAlerts", "CAPSLOCK_ON", A_WinDir "\Media\Speech On.wav" )
-	configuration.SetDefaultValue( "AudibleAlerts", "CAPSLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
+	config.SetDefault( "DoubleTapSpeeds", "ToggleCapsLockViaShift", 150 )
+	config.SetDefault( "AudibleAlerts", "NUMLOCK_ON", A_WinDir "\Media\Speech On.wav" )
+	config.SetDefault( "AudibleAlerts", "NUMLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
+	config.SetDefault( "AudibleAlerts", "SCROLLLOCK_ON", A_WinDir "\Media\Speech On.wav" )
+	config.SetDefault( "AudibleAlerts", "SCROLLLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
+	config.SetDefault( "AudibleAlerts", "CAPSLOCK_ON", A_WinDir "\Media\Speech On.wav" )
+	config.SetDefault( "AudibleAlerts", "CAPSLOCK_OFF", A_WinDir "\Media\Speech Off.wav" )
 }
 
 
@@ -28,7 +28,7 @@ AudibleAlertPlay( _name, _alert_on, _alert_off, _force_mode = false )
 	_state := ( _force_mode ) ? _force_mode : ( ( GetKeyState( _name, "T" ) ) ? _alert_on : _alert_off )
 
 	;; Read the key from the config file ( microcaching is a must as fileio is expensive )
-	_sound := configuration.ReadValue( "AudibleAlerts", _state )
+	_sound := config.Get( "AudibleAlerts", _state )
 
 	;; Play the sound..
 	SoundPlay, %_sound%
@@ -74,7 +74,7 @@ return
 	; else
 	; {
 		;; Read the value ( Will microcache later to prevent reading each time... ) and convert value to number...
-		; _delay := configuration.ReadValue( "DoubleTapSpeeds", "ToggleCapsLockViaShift" )
+		; _delay := config.Get( "DoubleTapSpeeds", "ToggleCapsLockViaShift" )
 		; _delay += 0
 
 		;; Capslock needs to be turned on if double-tapped ( 150 ms is a really quick double-tap time; I did this to keep it harder to activate )

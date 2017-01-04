@@ -6,7 +6,7 @@
 ;;
 ;; Used for debugging - displays example of what this library can do...
 ;;
-notify.example( )
+; notify.example( )
 
 
 ;;
@@ -28,11 +28,24 @@ class notify
 
 
 	;;
+	;; If _button was chosen, or defaulted to, return true - else false...
+	;; Yes / No / OK / Cancel / Abort / Ignore / Retry / Continue / TryAgain / Timeout
+	;;
+	IfMsgBox( _button )
+	{
+		IfMsgBox, %_button%
+			return true
+
+		return false
+	}
+
+
+	;;
 	;; Open up a message box with the contents
 	;;
-	MsgBox( _text )
+	MsgBox( _data* )
 	{
-		MsgBox, %_text%
+		MsgBox % string.join( "`n", _data* )
 	}
 
 
@@ -85,13 +98,12 @@ class notify
 	}
 
 
-
 	;;
 	;; Open up a message box with the contents
 	;;
-	TrayTip( _text, _title="", _delay:=5 )
+	TrayTip( _text, _title="", _delay:=5, _icon:=1 )
 	{
-		TrayTip, %_title%, %_text%, %_delay%
+		TrayTip, %_title%, %_text%, %_delay%, %_icon%
 	}
 
 
@@ -118,6 +130,6 @@ class notify
 	;;
 	debug( _text )
 	{
-		debug.print( _name . " Function Exists! Executing it!" )
+		debug.print( "[ C.Notify ] " . _text, "", "" )
 	}
 }

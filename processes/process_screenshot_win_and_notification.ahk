@@ -64,7 +64,7 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 	global _name
 
 	;; Path to the private screenshots folder..
-	_path := configuration.ReadValue( "Cloud", "PrivateScreenshotsPath" )
+	_path := config.Get( "Cloud", "PrivateScreenshotsPath" )
 
 	;; If this doesn't belong with this instance, quit...
 	if ( hwnd != A_ScriptHwnd )
@@ -77,7 +77,7 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 		IfMsgBox Yes
 		{
 			;; Public Screenshots Path
-			_path_public := configuration.ReadValue( "Cloud", "PublicScreenshotsPath" )
+			_path_public := config.Get( "Cloud", "PublicScreenshotsPath" )
 
 			; Move the Screenshot from Private to Public Screenshots Directory...
 			RunWait, %comspec% /c move "%_path%%_name%" "%_path_public%",,Hide,__cmd
@@ -90,7 +90,7 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 
 			;; Copy the public link to the clipboard..
 			;; TODO: URLENCODE the name ( To support spaces, etc.. just in case I change the string_safe function )...
-			_link := "https://dl.dropboxusercontent.com/u/" . configuration.ReadValue( "Cloud", "DropBox_UserID" )
+			_link := "https://dl.dropboxusercontent.com/u/" . config.Get( "Cloud", "DropBox_UserID" )
 			Clipboard = %_link%/Screenshots/%_name%
 		}
 		IfMsgBox No
@@ -153,7 +153,7 @@ ScreenshotName( )
 ;; Execute the process / Job... ie take the screenshot, save it and add the callback hook.. Allow this to run until the callback closes it...
 ;;
 	;; Read our Private Screenshot path from config.ini
-	_path := configuration.ReadValue( "Cloud", "PrivateScreenshotsPath" )
+	_path := config.Get( "Cloud", "PrivateScreenshotsPath" )
 
 	;; GDIP Call - Usable space within the area...
 	; screen := "0|0|" . A_ScreenWidth . "|" . A_ScreenHeight ; X|Y|W|H

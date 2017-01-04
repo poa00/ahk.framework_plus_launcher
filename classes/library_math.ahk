@@ -6,7 +6,10 @@
 ;;
 ;; Used for debugging - displays example of what this library can do...
 ;;
-; math.example( )
+OnInit_library_math( )
+{
+	; math.example( )
+}
 
 
 ;;
@@ -43,16 +46,17 @@ class math
 		_line5 = Snaps a number to the nearest interval divisible by the number... Perfect for angles, etc..`n-> math.SnapTo( 83, 45 ) == %_ex5%`n
 
 		;; Line 6 and Example 6
-		; _ex6:=math.xxx( )
-		_line6 = Empty ;		`n-> math.xxx( ) == %_ex6%`n
+		_ex6:=math.min( 8423, -10, -444, 894, 1231 )
+		_line6 = Returns the smallest number out of all the args`n-> math.min( 8423, -10, -444, 894, 1231 ) == %_ex6%`n
 
 		;; Line 7 and Example 7
-		; _ex7:=math.xxx( )
-		_line7 = Empty ;		`n-> math.xxx( ) == %_ex7%`n
+		_ex7:=math.max( 8423, -10, -444, 894, 1231 )
+		_line7 = Returns the largest number out of all the args`n-> math.max( 8423, -10, -444, 894, 1231 ) == %_ex7%`n
 
 		;; Line 8 and Example 8
-		; _ex8:=math.xxx( )
-		_line8 = Empty ;		`n-> math.xxx( ) == %_ex8%`n
+		_ex8:=math.clamp( -1234, 0, 4096 )
+		_ex8b:=math.clamp( 8192, 0, 4096 )
+		_line8 = Ensures the input number doesn't fall out of bounds of the upper and lower limit`n-> math.clamp( -1234, 0, 4096 ) == %_ex8%`n`n-> math.clamp( 8192, 0, 4096 ) == %_ex8b%`n
 
 		;; Line 9 and Example 9
 		; _ex9:=math.xxx( )
@@ -61,7 +65,8 @@ class math
 		;; Line 10 and Example 10
 		; _ex10 := math.log( 1 )
 		_line10 = Empty ;		`n-> math.log( 1 ) == %_ex10%`n
-		MsgBox, AcecoolAHK_Framework Math Library Example`n`n%_line1%`n%_line2%`n%_line3%`n%_line4%`n%_line5%`n%_line6%`n%_line7%`n%_line8%`n%_line9%`n%_line10%
+		; MsgBox, AcecoolAHK_Framework Math Library Example`n`n%_line1%`n%_line2%`n%_line3%`n%_line4%`n%_line5%`n%_line6%`n%_line7%`n%_line8%`n%_line9%`n%_line10%
+		notify.MsgBox( _line1, _line2, _line3, _line4, _line5, _line6, _line7, _line8, _line9, _line10 )
 	}
 
 
@@ -150,6 +155,45 @@ class math
 	floor( _value )
 	{
 		return floor( _value )
+	}
+
+
+	;;
+	;; Makes sure the value is in-between min and max or sets it to min / max...
+	;;
+	clamp( _value, _min, _max )
+	{
+		return ( ( _value < _min ) ? _min : ( ( _value > _max ) ? _max : _value ) )
+	}
+
+
+	;;
+	;; Returns the smallest number of all varargs
+	;;
+	min( _values* )
+	{
+		_min := ""
+		for _k, _v in _values
+		{
+			if ( _min == "" || _v < _min )
+				_min := _v
+		}
+		return _min
+	}
+
+
+	;;
+	;; Returns the largest number of all varargs
+	;;
+	max( _values* )
+	{
+		_max := ""
+		for _k, _v in _values
+		{
+			if ( _max == "" || _v > _max )
+				_max := _v
+		}
+		return _max
 	}
 
 

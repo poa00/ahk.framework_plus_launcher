@@ -27,8 +27,8 @@ class debug
 	;;
 	;; Simple Output to DebugView...
 	;;
-	print( _text )
+	print( _text, _category:="", _sub:="" )
 	{
-		OutputDebug, [ AcecoolAHK_Framework::Debugger ] %_text%
+		ahk.OutputDebug( "[ AcecoolAHK_Framework::Debugger ]" . _text )
 	}
 }

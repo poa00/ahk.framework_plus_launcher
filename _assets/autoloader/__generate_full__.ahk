@@ -16,15 +16,22 @@ Menu, Tray, Icon, _assets\icons\favicon_r90deg.ico
 ;;
 ;; Include the AutoLoader Function List
 ;;
+#include  classes\library_ahk.ahk
 #include  classes\library_autoloader.ahk
-#include  classes\library_configuration.ahk
+#include  classes\library_config.ahk
 #include  classes\library_debug.ahk
-#include  classes\library_fileio.ahk
+#include  classes\library_file.ahk
+#include  classes\library_ini.ahk
+#include  classes\library_input.ahk
 #include  classes\library_julian_date.ahk
+#include  classes\library_logic.ahk
 #include  classes\library_math.ahk
+#include  classes\library_nircmd.ahk
+#include  classes\library_notify.ahk
 #include  classes\library_string.ahk
 #include  classes\library_time.ahk
 #include  classes\library_util.ahk
+#include  classes\library_window.ahk
 #include  _assets\autoloader\__acecoolahk_framework_autoloader__.ahk
 
 
