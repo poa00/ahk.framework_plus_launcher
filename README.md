@@ -1,15 +1,29 @@
 # AcecoolAHK_Framework README #
 
 AcecoolAHK_Framework is an AutoHotkey framework which will support automatically loading of scripts from a neatly organized folder in your favorite Cloud backup folder...
+It can now also launch executables and other files by dropping them into the addons_exe folder ( runs them outside of the framework in their own process; will execute any type of file ) - In order for these to load, you need to rebuild the framework loader files ( dialog asks you on launch ) and it will ask you whether you want to load or skip each file in this folder for security reasons ( Will soon add a hashing feature so you only need to whitelist an application once - may add automated virustotal search soon ).
 
 
 ### What is this repository for? ###
 
 * An easy to use AutoHotkey script management solution which allows drag-and-drop integration for addon scripts and jobs / operations such as my Screenshot system ( Which captures a window, saves it with a useful name in Dropbox\Screenshots\ and creates a Windows notification letting you know the name with an OnClick function to open the screenshot and a dialog asking if you want to make the screenshot public by moving it into Dropbox\Public\Screenshots\ and giving you the public-direct-link to it to share )
-* 0.0.0
+* 0.4.20
 
 
 ### How do I get set up? ###
+
+* 1 ) AutoHotkey must be installed on your system first; download it here: https://autohotkey.com/download/
+* 2 ) Download the Repo Contents as a zip and extract it to your favorite Cloud directory on your PC ( such as: C:\Users\%UserName%\Dropbox\ ) **Note: Currently DropBox is required in order to use the screenshot active window hotkey and use the automatic copy public link to clipboard feature ( when you choose to make screenshot public ). Otherwise you can alter the screenshot folder in the config.ini file.
+* 3 ) If you are going to use DropBox ( and you did not alter the AHK Install Directory; if you did, see step 3c ), skip to step 4, otherwise you will need to edit setup.bat and alter the paths ( Future installation will be easier; I will make this even easier by adding a setup.ini config file soon )
+* 3a) Alter: set CloudPath=%UserProfile%\DropBox line to use the path you want. %UserProfile% is replaced with C:\sers\<Your username>\ and isn't required; you could write the exact path after the =...
+* 3b) If you want to rename the AcecoolAHK_Framework\ directory, you will need to change the line containing: set CloudAHKPath=%CloudPath%\AcecoolAHK_Framework  ( Only alter AcecoolAHK_Framework text as the folder you used in 3a will be the root directory )
+* 3c) If you altered the Installation Path for AutoHotkey you will need to edit the line containing: set AHKInstallPath=C:\Program Files\AutoHotkey - enter the exact path after the =
+* 3d) Nothing else needs to be edited for the purpose of altering the install directory...
+* 4 ) Execute [ As Administrator ]: C:\Users\%UserName%\Dropbox\acecoolahk_framework\_assets\_setup\setup.bat - This generates an AutoHotkey.ahk replacement file to run the framework ( and puts it into your Documents folder ) and symbolically links the AHK Install path Lib directory to the framework libraries\ folder... ( Backups are made if AutoHotkey.ahk and/or Lib\ exists )
+* 5 ) Follow on-screen instructions and verify the paths are correct ( Note, this will .bat the AutoHotkey.ahk in your Documents folder [ it will create a backup if one exists ] so when you run AutoHotkey.exe the framework will load by default, It will also add or replace the Libs folder in the AHK Install directory [ Creating a backup if one already existed ] by adding a Symbolic link from AutoHotkey\Libs\ to C:\Users\%UserName%\Dropbox\acecoolahk_framework\libraries\ - it will also create useful Environmental variables ).
+
+
+### Future Installation Instructions ###
 
 * Download the Repo Contents as a zip and extract it to your favorite Cloud directory on your PC ( such as: C:\Users\%UserName%\Dropbox\ )
 * Execute: C:\Users\%UserName%\Dropbox\acecoolahk_framework\setup\setup_acecoolahk_framework.ahk

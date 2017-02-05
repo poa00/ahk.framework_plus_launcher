@@ -14,15 +14,15 @@ cls
 set CloudPath=%UserProfile%\DropBox
 
 :: Path, from CloudPath, where you store your AHK Files...
-:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework
+:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework - this takes what you entered in CloudPath above and adds a sub-folder to it ( AcecoolAHK_Framework )
 set CloudAHKPath=%CloudPath%\AcecoolAHK_Framework
 
-:: Path, from CloudPath, where you store your library Files...
-:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework\libraries
+:: Path, from CloudAHKPath, where you store your library Files...
+:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework\libraries - This takes what you entered in CloudAHKPath and adds a sub-folder to it ( libraries )
 set CloudAHKLibPath=%CloudAHKPath%\libraries
 
-:: Path, from CloudPath, where you store the AHK Setup Files...
-:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework\_assets\_setup
+:: Path, from CloudAHKPath, where you store the AHK Setup Files...
+:: By default this is: C:\Users\%UserName%\DropBox\AcecoolAHK_Framework\_assets\_setup - This takes what you entered in CloudAHkPath and adds a folder and another in it.
 set CloudAHKSetupPath=%CloudAHKPath%\_assets\_setup
 
 :: AHK Installation Directory
@@ -38,8 +38,8 @@ set AHKLibPath=%AHKInstallPath%\Lib
 :: Note: You can use exact path or you can use the dynamic method which is %%A_AppData%%\..\..\CloudFolder\AcecoolAHK_Framework\
 :: Where %%A_AppData%%\..\..\ IS C:\Users\%UserName%\
 :: Uncomment the next line if you want exact path and comment the one currently commented...
-:: set AHKLoaderWorkingDir=%CloudAHKPath%
-set AHKLoaderWorkingDir=%%A_AppData%%\..\..\Dropbox\AcecoolAHK_Framework
+set AHKLoaderWorkingDir=%CloudAHKPath%
+REM set AHKLoaderWorkingDir=%%A_AppData%%\..\..\Dropbox\AcecoolAHK_Framework
 
 :: AHK Loader File inside the Cloud Folder...
 :: This is the file AutoHotkey.exe > Documents\AutoHotkey.ahk executes inside of the AcecoolAHK_Framework\ directory to run the 
