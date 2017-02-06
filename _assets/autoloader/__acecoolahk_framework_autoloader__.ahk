@@ -76,6 +76,7 @@ AutoLoader_ActiveLoaderFile( _file = false )
 	;; So we can use this directory and change the file dynamically if needed
 	_file := ( _file ) ? AUTO_LOADER_ID . "_" . _file :AUTO_LOADER_ID
 	; return "_assets\_autoloader\" . AUTO_LOADER_ID . ".ahk"
+
 	return "_assets\__load_order_files__\_" . _file . "_.ahk"
 }
 

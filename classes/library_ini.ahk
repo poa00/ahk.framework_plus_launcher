@@ -34,21 +34,12 @@ class ini
 	example( )
 	{
 		;; Testing indented values...
-		; _example := this.Get( "config.ini", "AcecoolAHK_Framework", "__this__" )
-		; debug.print( _example . " should be: config.ini" )
+		_example := this.Get( "config.ini", "AcecoolAHK_Framework", "__this__" )
+		debug.print( _example . " should be: config.ini" )
 
-		; _example := this.Exists( "config.ini", "AcecoolAHK_Framework", "__this__" )
-		; debug.print( _example . " should be: true or 1" )
+		_example := this.Exists( "config.ini", "AcecoolAHK_Framework", "__this__" )
+		debug.print( _example . " should be: true or 1" )
 	}
-
-
-	;;
-	;;
-	;;
-	; _____( )
-	; {
-	
-	; }
 
 
 	;;
@@ -87,6 +78,8 @@ class ini
 		;; Read it
 		IniRead, _return, %_file%, %_section%, %_key%, %_default%
 
+		; debug.print( "[ Ini.__Read " . _file . " ] [ " . _section . " ] " . _key . " = " . _return . " / " . _default )
+
 		;; Return it..
 		return _return
 	}
@@ -97,6 +90,7 @@ class ini
 	;;
 	__IniWrite( _file, _section, _key, _value := "" )
 	{
+		debug.print( "[ Ini.__Write " . _file . " ] [ " . _section . " ] " . _key . " = " . _value )
 		IniWrite, %_value%, %_file%, %_section%, %_key%
 	}
 
@@ -106,6 +100,7 @@ class ini
 	;;
 	__IniDelete( _file, _section, _key := "" )
 	{
+		debug.print( "[ Ini.__Delete " . _file . " ] [ " . _section . " ] " . _key )
 		IniDelete, %_file%, %_section%, %_key%
 	}
 
@@ -117,14 +112,22 @@ class ini
 	{
 		;; Debugging
 		; debug.print( "Config > Get > From File: > '" this.__FILE__ "' Section: '" _section "' > Key: '" _key "' Value: '" _return "'", "C.ini", "Get" )
+		; debug.print( "[ IniGet " . _file . " ] [ " . _section . " ] " . _key . " = " . _default )
 
 		;; Read data from the Ini File
 		_return := this.__IniRead( _file, _section, _key, _default )
 
+		;; Original - Issues: Remove formatting from the value returned ( currently only prefix allowed; later I may allow quotes, data-typing, etc.. )
+		; _valuef := this.__FormatValue( "" )
+		; if ( _valuef != "" )
+			; _return := string.replace( _return, _valuef, "", 0, 1 )
+
 		;; Remove formatting from the value returned ( currently only prefix allowed; later I may allow quotes, data-typing, etc.. )
-		_valuef := this.__FormatValue( "" )
+		_valuef := this.__FormatValue( _return )
 		if ( _valuef != "" )
 			_return := string.replace( _return, _valuef, "", 0, 1 )
+
+		debug.print( "[ Ini.Get " . _file . " ] [ " . _section . " ] " . _key . " = " . _return . " / " . _default )
 
 		;; Return the data...
 		return _return
@@ -138,6 +141,7 @@ class ini
 	{
 		;; Debugging
 		; debug.print( "Config > Set > Into File: > '" this.__FILE__ "' Section: '" _section "' > Key: '" _key "' Value: '" _value "'", "C.ini", "Set" )
+		debug.print( "[ Ini.Set " . _file . " ] [ " . _section . " ] " . _key . " = " . _value . " / " . _default )
 
 		;; Just in case the dev didn't initialize the section / key by using SetDefault first; this will add the formatting...
 		;; Make sure SetDefault wasn't called because if it was, we don't want to double-format our key...
@@ -167,6 +171,9 @@ class ini
 		;; If the key doesn't exist.. add it with a tab because Set without tab will update it properly..
 		if ( !this.Exists( _file, _section, _key ) )
 		{
+			;;
+			debug.print( "[ Ini.SetDefault " . _file . " ] [ " . _section . " ] " . _key . " = " . _value )
+
 			;; Initialize the Section / Key with the key indented for easier readability...
 			this.Set( _file, _section, this.__FormatKey( _key ), _value, true )
 

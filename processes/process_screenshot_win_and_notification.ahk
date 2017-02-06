@@ -79,6 +79,9 @@ Toast_Callback_Screenshot( wParam, lParam, msg, hwnd )
 			;; Public Screenshots Path
 			_path_public := config.Get( "Cloud", "PublicScreenshotsPath" )
 
+			;; Create folder if it doesn't exist..
+			file.CreateFolderIfNotExists( _path_public )
+
 			; Move the Screenshot from Private to Public Screenshots Directory...
 			RunWait, %comspec% /c move "%_path%%_name%" "%_path_public%",,Hide,__cmd
 
@@ -154,6 +157,9 @@ ScreenshotName( )
 ;;
 	;; Read our Private Screenshot path from config.ini
 	_path := config.Get( "Cloud", "PrivateScreenshotsPath" )
+
+	;; Create the folder if it doesn't exist...
+	file.CreateFolderIfNotExists( _path )
 
 	;; GDIP Call - Usable space within the area...
 	; screen := "0|0|" . A_ScreenWidth . "|" . A_ScreenHeight ; X|Y|W|H

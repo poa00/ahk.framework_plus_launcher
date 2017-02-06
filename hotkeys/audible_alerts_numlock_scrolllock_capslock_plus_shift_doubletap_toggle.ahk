@@ -30,13 +30,16 @@ AudibleAlertPlay( _name, _alert_on, _alert_off, _force_mode = false )
 	;; Read the key from the config file ( microcaching is a must as fileio is expensive )
 	_sound := config.Get( "AudibleAlerts", _state )
 
+	;; Simple debugging to notify what is being received...
+	debug.print( "[ AudibleAlertPlay ] [ " . _name . " ] " . _state . " = " . _sound )
+
 	;; Play the sound..
 	SoundPlay, %_sound%
 
 	;; Prevent spam by waiting to do anything until the key is released...
 	;; If anyone knows a better way.. ie to trigger this once per key-press let me know...
 	;; Doesn't seem to work...
-	; KeyWait, %_name%
+	KeyWait, %_name%
 }
 
 

@@ -24,7 +24,7 @@ class file
 
 
 	;;
-	;;
+	;; Determines whether or not a file or folder exists... Returns true if yes, false if not..
 	;;
 	IfExist( _file )
 	{
@@ -36,7 +36,16 @@ class file
 
 
 	;;
-	;; Alias...
+	;; Determines whether or not a file or folder exists... Returns true if not, false if yes..
+	;;
+	IfNotExist( _file )
+	{
+		return !this.Exists( _file )
+	}
+
+
+	;;
+	;; Alias of IfExist..
 	;;
 	Exists( _file )
 	{
@@ -45,11 +54,21 @@ class file
 
 
 	;;
+	;; Alias of IfNotExist..
 	;;
-	;;
-	IfNotExist( _file )
+	NotExists( _file )
 	{
-		return !this.IfExist( _file )
+		return !this.Exists( _file )
+	}
+
+
+	;;
+	;; Creates a folder if it doesn't exist...
+	;;
+	CreateFolderIfNotExists( _name )
+	{
+		if ( this.NotExists( _name ) )
+			FileCreateDir, %_name%
 	}
 
 

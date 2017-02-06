@@ -61,11 +61,10 @@ class config
 
 
 	;;
-	;;
+	;; Remove INI File Entry...
 	;;
 	Delete( _section, _key )
 	{
-		; debug.print( "Removing config key / value: " . _section . " / key: " . _key )
 		return ini.Delete( this.__FILE__, _section, _key )
 	}
 

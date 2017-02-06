@@ -39,6 +39,9 @@ Menu, Tray, Icon, _assets\icons\favicon_r270deg.ico
 ;; Generate the file to load the framework base ( only base files such as definitions, functions, classes, etc... )
 ;;
 
+;; Create folder if it doesn't exist..
+file.CreateFolderIfNotExists( "_assets\__load_order_files__\" )
+
 ;; Identify the active file to use and clear it...
 AutoLoader_ResetLoader( "loader_base" )
 
