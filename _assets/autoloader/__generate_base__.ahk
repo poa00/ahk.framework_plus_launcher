@@ -31,6 +31,7 @@ Menu, Tray, Icon, _assets\icons\favicon_r270deg.ico
 #include  classes\library_string.ahk
 #include  classes\library_time.ahk
 #include  classes\library_util.ahk
+#include  classes\library_version.ahk
 #include  classes\library_window.ahk
 #include  _assets\autoloader\__acecoolahk_framework_autoloader__.ahk
 

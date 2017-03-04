@@ -44,16 +44,39 @@ class util
 	;;
 	;; Run a function if it exists, otherwise do not and don't give an error ( because the function being executed is using a variable name )
 	;;
-	RunFuncIfExists( _name )
+	FuncExists( _name )
 	{
 		if ( IsFunc( _name ) )
 		{
-			;; Debugging
-			; debug.print(  _name . " Function Exists! Executing it!", "", "" )
+			;; Debugging, output only if enabled...
+			; debug.print( "[ util.FuncExists ] " . _name . " exists!" )
+
+			return true
+		}
+
+		;; Debugging, output only if enabled...
+		; debug.print( "[ util.FuncExists ] " . _name . " does NOT exist!" )
+
+		return false
+	}
+
+
+	;;
+	;; Run a function if it exists, otherwise do not and don't give an error ( because the function being executed is using a variable name )
+	;;
+	RunFuncIfExists( _name )
+	{
+		if ( this.FuncExists( _name ) )
+		{
+			;; Debugging, output only if enabled...
+			debug.print( "[ util.RunFuncIfExists ] Executing: " . _name . "( );" )
 
 			;; Return the value of the function call ( if any )
 			return %_name%( )
 		}
+
+		;; Debugging, output only if enabled...
+		; debug.print( "[ util.RunFuncIfExists ] Can't execute " . _name . "( ); because it doesn't exist!" )
 
 		return false
 	}

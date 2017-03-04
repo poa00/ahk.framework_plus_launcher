@@ -4,6 +4,11 @@
 
 
 ;;
+;; TODO: Alter this to look and operate similarly to the audio-device-cycler and load / unload file-definitions on the fly.. should be possible..
+;;
+
+
+;;
 ;; Index - WIN + F8 to toggle between Spanish / German overlapping characters
 ;; German Overlapping Characters ( WIN + F8 To Switch Between the German and Spanish Chars )
 ;;		Alt + 			a o u		==		ä ö ü
@@ -19,10 +24,10 @@
 ;;		ALT + 			e i n ? !	==		é í ñ ¿ ¡
 ;;
 ;; Special Characters
-;;		ALT + 			c l r t		==		© ® ™
+;;		ALT + 			` c l r t	==		° © ® ™
 ;;		ALT + CTRL +	c e l		==		¢ € £
 ;;
-;; Match Characters
+;; Math Characters
 ;;		ALT + 			d =	/ -	0	==	Δ ≡ ÷ ± ø
 ;;		ALT + SHIFT		D > < * +	==	δ ≥ ≤ √ ±
 ;;
@@ -55,7 +60,8 @@ LWin & F8::
 		; TrayTip, Spanish Keys Enabled, áóóúú
 		OnMessage( 0x404, "" )
 		OnMessage( 0x404, Func( "Toast_Callback_Help" ) )
-		TrayTip, Spanish Keys Enabled, ALT + a / o / u [ + SHifT ]: á / ó / ú or á / ó / ú
+		; notify.TrayTip( "Spanish Keys Enabled, ALT + a / o / u [ + SHifT ]: á / ó / ú or á / ó / ú" )
+		TrayTip, "Spanish Keys Enabled, ALT + a / o / u [ + SHifT ]: á / ó / ú or á / ó / ú"
 		_notification = "Español Activado! -- Click for more hot keys and help!"
 	}
 
@@ -64,7 +70,8 @@ LWin & F8::
 	{
 		OnMessage( 0x404, "" )
 		OnMessage( 0x404, Func( "Toast_Callback_Help" ) )
-		TrayTip, German Keys Enabled, ALT + a / o / u [ + SHifT ]: ä / ö / ü or Ä / Ö / Ü
+		; notify.TrayTip( "German Keys Enabled, ALT + a / o / u [ + SHifT ]: ä / ö / ü or Ä / Ö / Ü" )
+		TrayTip, "German Keys Enabled, ALT + a / o / u [ + SHifT ]: ä / ö / ü or Ä / Ö / Ü"
 		_notification = "Deutsch Aktiviert! -- Click for more hot keys and help!"
 	}
 
@@ -135,7 +142,7 @@ return
 
 
 ;;
-;; German Umlauts and Special Characters - Josh 'Acecool' Moser
+;; German Umlauts and Special Characters
 ;; ▓▒░│┤╡╢╖╕║╣╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▀▐
 ;;
 
@@ -186,8 +193,11 @@ return
 
 
 ;;
-;; Special Characters Charset - Josh 'Acecool' Moser
+;; Special Characters Charset
 ;;
+
+;; Temperature / Degrees
+!`::		sendInput	{°}
 
 ;; Copyright
 !c::		sendInput	{©}
@@ -212,7 +222,7 @@ return
 
 
 ;;
-;; Math Charset - Josh 'Acecool' Moser
+;; Math Charset
 ;;
 
 ;; Delta

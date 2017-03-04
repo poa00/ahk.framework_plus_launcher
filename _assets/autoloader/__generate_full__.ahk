@@ -31,6 +31,7 @@ Menu, Tray, Icon, _assets\icons\favicon_r90deg.ico
 #include  classes\library_string.ahk
 #include  classes\library_time.ahk
 #include  classes\library_util.ahk
+#include  classes\library_version.ahk
 #include  classes\library_window.ahk
 #include  _assets\autoloader\__acecoolahk_framework_autoloader__.ahk
 
@@ -92,6 +93,12 @@ AutoLoader_ReadFiles( "addons_run", true )
 
 ;; Addon Scripts that should be included as a drag and drop file which has everything ( functions, hotkeys, etc.. or whatever.. )
 AutoLoader_ReadFiles( "addons_inc" )
+
+;; Important core-related files that launch other processes, etc...
+AutoLoader_ReadFiles( "modules" )
+
+;; Visual Stuff when it comes..
+AutoLoader_ReadFiles( "vgui" )
 
 
 ;; Read all hotkeys into inclusion list

@@ -62,4 +62,13 @@ class debug
 		if ( this.DeveloperMode( ) )
 			ahk.OutputDebug( "[ AcecoolDebug ] " . _text )
 	}
+
+
+	;;
+	;; Simple Output to DebugView...
+	;;
+	printx( _text, _category:="", _sub:="" )
+	{
+		ahk.OutputDebug( "[ AcecoolDebug ] " . _text )
+	}
 }

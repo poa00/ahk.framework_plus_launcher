@@ -24,6 +24,45 @@ class file
 
 
 	;;
+	;;
+	;;
+	Read( _file, _default := "" )
+	{
+		;; If the file exists, read it...
+		if ( this.Exists( _file ) )
+		{
+			FileRead, _data, %_file%
+
+			return _data
+		}
+
+		;; If the file doesn't exist, we can optionally return a default value...
+		if ( _default != "" )
+			return _default
+
+		;; If no default value was given and the file doesn't exist.. return false..
+		return false
+	}
+
+
+	;;
+	;; https://autohotkey.com/docs/commands/URLDownloadToFile.htm
+	;;
+	ReadFromInternet( _url := "https://bitbucket.org/Acecool/acecoolahk_framework/raw/master/version.txt" )
+	{
+		; Example: Download text to a variable:
+		_request := ComObjCreate( "WinHttp.WinHttpRequest.5.1" )
+		_request.Open( "GET", _url, false )
+		_request.Send( )
+
+		; Using 'true' above and the call below allows the script to remain responsive.
+		_request.WaitForResponse( )
+		_data := _request.ResponseText
+		MsgBox % version
+	}
+
+
+	;;
 	;; Determines whether or not a file or folder exists... Returns true if yes, false if not..
 	;;
 	IfExist( _file )
@@ -63,19 +102,9 @@ class file
 
 
 	;;
-	;; Creates a folder if it doesn't exist...
-	;;
-	CreateFolderIfNotExists( _name )
-	{
-		if ( this.NotExists( _name ) )
-			FileCreateDir, %_name%
-	}
-
-
-	;;
 	;; Appends _data to _file
 	;;
-	Append( _file, _data )
+	Append( _file, _data := "" )
 	{
 		FileAppend %_path% %_data%
 	}
@@ -84,8 +113,37 @@ class file
 	;;
 	;; Creates a blank file ( or appends nothing )
 	;;
-	Create( _file )
+	Create( _file, _data := "" )
 	{
-		return this.Append( _file, "" )
+		return this.Append( _file, _data )
+	}
+
+
+	;;
+	;; Creates a file if it doesn't exist...
+	;;
+	CreateIfNotExists( _file, _data := "" )
+	{
+		if ( this.NotExists( _file ) )
+		{
+			file.Create( _file )
+
+			if ( _data != "" )
+				this.Append( _file, _data )
+
+			return true
+		}
+
+		return false
+	}
+
+
+	;;
+	;; Creates a folder if it doesn't exist...
+	;;
+	CreateFolderIfNotExists( _name )
+	{
+		if ( this.NotExists( _name ) )
+			FileCreateDir, %_name%
 	}
 }

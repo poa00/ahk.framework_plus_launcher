@@ -190,6 +190,24 @@ class ini
 
 
 	;;
+	;;
+	;;
+	SetComment( _file, _section, _key, _value )
+	{
+		debug.print( "[ Ini.SetComment " . _file . " ] [ " . _section . " ] " . _key . " = " . _value )
+	}
+
+
+	;;
+	;;
+	;;
+	DeleteComment( _FILE__, _section, _key )
+	{
+		debug.print( "[ Ini.DeleteComment " . _file . " ] [ " . _section . " ] " . _key )
+	}
+
+
+	;;
 	;; Remove an entire section or just a key in the section ( Doesn't appear to work )
 	;;
 	Delete( _file, _section, _key := "" )
